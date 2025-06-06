@@ -14,6 +14,8 @@
 class PS2dev
 {
 	public:
+		typedef void (*ResetCallback)();
+
 		PS2dev(int clk, int data);
 
 		// Enum containing all of the non-special keycodes/scancodes
@@ -163,7 +165,7 @@ class PS2dev
 		int write(unsigned char data);
 		int read(unsigned char * data);
 		int available();
-		void keyboard_init();
+		void keyboard_init(ResetCallback callback = nullptr);
 		int keyboard_press(unsigned char code);
 		int keyboard_release(unsigned char code);
 		int keyboard_press_special(unsigned char code);
@@ -176,6 +178,8 @@ class PS2dev
 		int keyboard_handle(unsigned char *leds);
 		int keyboard_mkbrk(unsigned char code);
 		int keyboard_special_mkbrk(unsigned char code);
+
+		void setResetCallback(ResetCallback callback);
 	private:
 		int _ps2clk;
 		int _ps2data;
@@ -186,7 +190,6 @@ class PS2dev
 		int do_read(unsigned char *data);
 		bool handling_io_abort;
 		unsigned char leds;
+		ResetCallback resetCallback;
 };
-
 #endif /* ps2dev_h */
-

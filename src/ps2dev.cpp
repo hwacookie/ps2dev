@@ -260,8 +260,9 @@ int PS2dev::read(unsigned char * value)
 }
 
 
-void PS2dev::keyboard_init()
+void PS2dev::keyboard_init(ResetCallback callback)
 {
+  resetCallback = callback;
   delay(200);
   write(0xAA);
   return;
@@ -285,6 +286,9 @@ int PS2dev::keyboard_reply(unsigned char cmd, unsigned char *leds_)
     //the while loop lets us wait for the host to be ready
     while (write(0xFA)!=0) delay(1); //send ACK
     while (write(0xAA) != 0) delay(1); // send BAT_SUCCESS
+    if (resetCallback) {
+      resetCallback();
+    }
     break;
   case 0xFE: //resend
     ack();
