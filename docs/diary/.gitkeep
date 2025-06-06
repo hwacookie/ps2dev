@@ -1,0 +1,87 @@
+# Ignore build and output directories
+out/
+dist/
+build/
+*.tsbuildinfo
+
+# Node modules
+node_modules/
+
+# Logs
+npm-debug.log*
+yarn-error.log*
+yarn-debug.log*
+
+# VS Code settings
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# VS Code Extension Test Output
+.vscode-test/
+
+# VS Code Extension packaging
+*.vsix
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# Logs and runtime data
+logs/
+*.log
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Coverage output
+coverage/
+.nyc_output/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Dependency directories
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional stylelint cache
+.stylelintcache
+
+# Mac system files
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# JetBrains IDEs
+.idea/
+
+# Cursor AI
+.cursorignore
+.cursorindexingignore

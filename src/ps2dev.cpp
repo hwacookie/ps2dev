@@ -283,10 +283,16 @@ int PS2dev::keyboard_reply(unsigned char cmd, unsigned char *leds_)
   {
   case 0xFF: //reset
     ack();
+    #ifdef _PS2DBG
+    _PS2DBG.println(F("Keyboard reset command received."));
+    #endif
     //the while loop lets us wait for the host to be ready
     while (write(0xFA)!=0) delay(1); //send ACK
     while (write(0xAA) != 0) delay(1); // send BAT_SUCCESS
     if (resetCallback) {
+      #ifdef _PS2DBG
+      _PS2DBG.println(F("Keyboard reset command received."));
+      #endif
       resetCallback();
     }
     break;
@@ -304,6 +310,13 @@ int PS2dev::keyboard_reply(unsigned char cmd, unsigned char *leds_)
   case 0xF4: //enable data reporting
     //FM
     ack();
+    // according to the net, modern bioses do not use 0xFF anymore, but a sequence of F5/F4 instead. Upon receiving an F4, we treat that as a reset
+    if (resetCallback) {
+      #ifdef _PS2DBG
+      _PS2DBG.println(F("Keyboard reset command received."));
+      #endif
+      resetCallback();
+    }
     break;
   case 0xF3: //set typematic rate
     ack();
@@ -338,7 +351,6 @@ int PS2dev::keyboard_reply(unsigned char cmd, unsigned char *leds_)
 #ifdef _PS2DBG
     _PS2DBG.print("LEDs: ");
     _PS2DBG.println(leds, HEX);
-    //digitalWrite(LED_BUILTIN, leds);
 #endif
 	*leds_ = leds;
     return 1;
